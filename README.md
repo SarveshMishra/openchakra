@@ -1,111 +1,264 @@
-<div align="center" style="display:flex;flex-direction:column;">
-  <a href="https://openchakra.app">
-    <img src="./public/images/github-banner.png" alt="Openchakra: Visual editor for Chakra UI." />
-  </a>
-  <h3>Visual Editor for Chakra UI</h3>
-</div>
-
-OpenChakra is a visual editor for the best component library in town: [Chakra UI](https://chakra-ui.com) 🤗. Quickly draft components with the simple drag and drop UI.
-
-👉 [https://openchakra.app](https://openchakra.app)
-
-## Features
-
-- 🎨 Drag and drop [Chakra UI](https://chakra-ui.com/getting-started) components
-- 💅 Preset components
-- 👀 Live props editing and styling
-- ⚛️ Production-ready code
-- 🎈 CodeSandbox export
-- 🔮 Undo/redo edit
-- 💽 Localstorage sync
-
-[![Screenshot](./public/images/screenshot.png)](https://openchakra.app)
-
-## Getting started
-
-### Builder mode
-
-The Builder mode adds extra padding/border to ease components selection (like containers).
-
-> 💡Toggle the Builder mode with the `b` shortcut
-
-### Code panel
-
-Toggle the code panel for viewing the JSX/React code of your components. You can even export your code directly to CodeSandbox!
-
-> 💡Toggle the Code panel with the `c` shortcut
-
-### Components panel
-
-Drag any component from the left hand panel into this editor. Then start interacting with them.
-You can drag a preset: it's a group of components (like Alert). Just drop a preset to easily setup a complex component!
-
-### Inspector
-
-**Update props & style**
-
-On the right hand-side, you can find the inspector panel. You will find the tools to edit the component's props and style.
-
-**Delete, reset and documentation**
-
-Reach the yellow bar on the top to delete, reset and access the Chakra documentation of each component.
-
-**Sort components**
-
-By clicking on a component containing children, you will see a Children panel appearing on the right. It enables sorting the children.
-
-### Editor Shortcuts
-
-| Shortcut         | Description               |
-| ---------------- | ------------------------- |
-| `cmd+Z` `ctrl+Z` | Undo last action          |
-| `cmd+Y` `ctrl+y` | Redo action               |
-| `cmd+D` `ctrl+d` | Duplicate component       |
-| `del`            | Delete selected component |
-| `c`              | Toggle Code panel         |
-| `b`              | Toggle Builder mode       |
-| `p`              | Select parent component   |
-| `Esc`            | Unselect component        |
-
-## Roadmap
-
-- More Chakra UI components integration
-- Components copy
-- Props panel improvements
-- Code generation improvements
-- Dark mode support
-- Custom presets
-- Custom theme
-- Handle PseudoBox state (hover, active…)
-- Fix bugs 🧨
-- Support other UI (Material, Reakit...)
-
-## Contributors
-
-### Code Contributors
-
-This project exists thanks to all the people who contribute. [[Contribute](CONTRIBUTING.md)].
-<a href="https://github.com/premieroctet/openchakra/graphs/contributors"><img src="https://opencollective.com/openchakra/contributors.svg?width=890&button=false" /></a>
-
-### Financial Contributors
-
-Become a financial contributor and help us sustain our community. [[Contribute](https://opencollective.com/openchakra/contribute)]
-
-#### Individuals
-
-<a href="https://opencollective.com/openchakra"><img src="https://opencollective.com/openchakra/individuals.svg?width=890"></a>
-
-#### Organizations
-
-Support this project with your organization. Your logo will show up here with a link to your website. [[Contribute](https://opencollective.com/openchakra/contribute)]
-
-<a href="https://opencollective.com/openchakra/organization/0/website"><img src="https://opencollective.com/openchakra/organization/0/avatar.svg"></a>
-<a href="https://opencollective.com/openchakra/organization/1/website"><img src="https://opencollective.com/openchakra/organization/1/avatar.svg"></a>
-<a href="https://opencollective.com/openchakra/organization/2/website"><img src="https://opencollective.com/openchakra/organization/2/avatar.svg"></a>
-<a href="https://opencollective.com/openchakra/organization/3/website"><img src="https://opencollective.com/openchakra/organization/3/avatar.svg"></a>
-<a href="https://opencollective.com/openchakra/organization/4/website"><img src="https://opencollective.com/openchakra/organization/4/avatar.svg"></a>
-<a href="https://opencollective.com/openchakra/organization/5/website"><img src="https://opencollective.com/openchakra/organization/5/avatar.svg"></a>
-<a href="https://opencollective.com/openchakra/organization/6/website"><img src="https://opencollective.com/openchakra/organization/6/avatar.svg"></a>
-<a href="https://opencollective.com/openchakra/organization/7/website"><img src="https://opencollective.com/openchakra/organization/7/avatar.svg"></a>
-<a href="https://opencollective.com/openchakra/organization/8/website"><img src="https://opencollective.com/openchakra/organization/8/avatar.svg"></a>
-<a href="https://opencollective.com/openchakra/organization/9/website"><img src="https://opencollective.com/openchakra/organization/9/avatar.svg"></a>
+# Steps to create custom preset
+Create preview files in
+```
+src/components/editor/previews/SliderPreview.tsx
+```
+```ts
+import React from 'react'
+import { useInteractive } from '~hooks/useInteractive'
+import ComponentPreview from '~components/editor/ComponentPreview'
+import { Slider } from '@chakra-ui/react'
+const SliderPreview: React.FC<IPreviewProps> = ({ component }) => {
+  const { props } = useInteractive(component, false)
+  return (
+    <Slider {...props}>
+      {component.children.map((key: string) => (
+        <ComponentPreview key={key} componentName={key} />
+      ))}
+    </Slider>
+  )
+}
+export default SliderPreview
+```
+```
+src/components/editor/previews/SliderTrackPreview.tsx
+```
+```ts
+import React from 'react'
+import { useInteractive } from '~hooks/useInteractive'
+import ComponentPreview from '~components/editor/ComponentPreview'
+import { SliderTrack } from '@chakra-ui/react'
+const SliderTrackPreview: React.FC<IPreviewProps> = ({ component }) => {
+  const { props } = useInteractive(component, false)
+  return (
+    <SliderTrack {...props}>
+      {component.children.map((key: string) => (
+        <ComponentPreview key={key} componentName={key} />
+      ))}
+    </SliderTrack>
+  )
+}
+export default SliderTrackPreview
+```
+Then import in ComponentPreview.tsx
+```ts
+import SliderTrackPreview from './previews/SliderTrackPreview'
+import SliderPreview from './previews/SliderPreview'
+// For basic components
+case 'SliderThumb':
+case 'SliderFilledTrack':
+  // For complex components
+  case 'SliderTrack':
+    return <SliderTrackPreview component={component} />
+  case 'Slider':
+    return <SliderPreview component={component} />
+```
+Create panel in components
+```
+src/components/inspector/panels/components/SliderPanel.tsx
+```
+```ts
+import React, { memo } from 'react'
+import {
+  SliderTrack,
+  SliderFilledTrack,
+  Slider,
+  SliderThumb,
+  Select,
+  Input,
+} from '@chakra-ui/react'
+import FormControl from '~components/inspector/controls/FormControl'
+import { useForm } from '~hooks/useForm'
+import usePropsSelector from '~hooks/usePropsSelector'
+import SizeControl from '~components/inspector/controls/SizeControl'
+import ColorsControl from '~components/inspector/controls/ColorsControl'
+const SliderPanel = () => {
+  const { setValue, setValueFromEvent } = useForm()
+  const value = usePropsSelector('value')
+  const size = usePropsSelector('size')
+  const step = usePropsSelector('step')
+  const orientation = usePropsSelector('orientation')
+  const label = usePropsSelector('aria-label')
+  const min = usePropsSelector('min')
+  const max = usePropsSelector('max')
+  return (
+    <>
+      <FormControl label="Value">
+        <Slider
+          onChange={value => setValue('value', value)}
+          min={0}
+          max={100}
+          step={1}
+          value={value}
+          defaultValue={value}
+        >
+          <SliderTrack>
+            <SliderFilledTrack />
+          </SliderTrack>
+          <SliderThumb />
+        </Slider>
+      </FormControl>
+      <FormControl label="Min">
+        <Slider
+          onChange={value => setValue('min', value)}
+          min={0}
+          max={100}
+          step={1}
+          value={min}
+          defaultValue={min}
+        >
+          <SliderTrack>
+            <SliderFilledTrack />
+          </SliderTrack>
+          <SliderThumb />
+        </Slider>
+      </FormControl>
+      <FormControl label="Max">
+        <Slider
+          onChange={value => setValue('max', value)}
+          min={0}
+          max={100}
+          step={1}
+          value={max}
+          defaultValue={max}
+        >
+          <SliderTrack>
+            <SliderFilledTrack />
+          </SliderTrack>
+          <SliderThumb />
+        </Slider>
+      </FormControl>
+      <FormControl label="Step">
+        <Slider
+          onChange={step => setValue('step', step)}
+          min={1}
+          max={100}
+          step={1}
+          value={step}
+          defaultValue={step}
+        >
+          <SliderTrack>
+            <SliderFilledTrack />
+          </SliderTrack>
+          <SliderThumb />
+        </Slider>
+      </FormControl>
+      <FormControl label="Aria Label">
+        <Input
+          size="sm"
+          value={label || ''}
+          type="text"
+          name="aria-label"
+          onChange={setValueFromEvent}
+        />
+      </FormControl>
+      <ColorsControl label="Color Scheme" name="colorScheme" />
+      <SizeControl label="Size" options={['sm', 'md', 'lg']} value={size} />
+      <FormControl htmlFor="orientation" label="Orientation">
+        <Select
+          id="orientation"
+          onChange={setValueFromEvent}
+          name="orientation"
+          size="sm"
+          value={orientation || ''}
+        >
+          <option>horizontal</option>
+          <option>vertical</option>
+        </Select>
+      </FormControl>
+    </>
+  )
+}
+export default memo(SliderPanel)
+```
+Then insert component file in panel
+```ts
+import SliderPanel from './components/SliderPanel'
+// type
+{
+  type === 'Slider' && <SliderPanel />
+}
+{
+  type === 'SliderTrack' && <ChildrenControl />
+}
+{
+  type === 'SliderFilledTrack' && <ChildrenControl />
+}
+{
+  type === 'SliderThumb' && <ChildrenControl />
+}
+```
+Now add it to component.tsx list
+```ts
+ Slider: {
+    children: {
+      SliderTrack: {},
+      SliderFilledTrack: {},
+      SliderThumb: {},
+    },
+  },
+```
+Add to builder.ts
+```ts
+export const buildSlider = (parent: string): ComposedComponent => {
+  const composer = new Composer()
+  const nodeId = composer.addNode({ type: 'Slider' })
+  const track = composer.addNode({ type: 'SliderTrack', parent: nodeId })
+  composer.addNode({ type: 'SliderFilledTrack', parent: track })
+  composer.addNode({ type: 'SliderThumb', parent: nodeId })
+  const components = composer.getComponents()
+  return {
+    components,
+    root: nodeId,
+    parent,
+  }
+}
+```
+then add to component type
+```ts
+;(src / react - app - env.d.ts) |
+  'Slider' |
+  'SliderTrack' |
+  'SliderFilledTrack' |
+  'SliderThumb'
+```
+Add to utils
+```ts
+// src/utils/defaultProps.tsx
+SliderProps,
+  SliderTrackProps,
+  SliderThumbProps,
+  }
+  //
+   Slider?: PropsWithForm<SliderProps>
+  SliderTrack?: PropsWithForm<SliderTrackProps>
+  SliderFilledTrack?: PropsWithForm<any>
+  SliderThumb?: PropsWithForm<SliderThumbProps>
+  //
+   Slider: {
+    step: 1,
+    size: 'md',
+    defaultValue: 50,
+    'aria-label': 'slider',
+  },
+  SliderFilledTrack: {},
+  SliderThumb: {},
+  SliderTrack: {},
+```
+Then to utils editor.ts
+```ts
+const SLIDER_COMPONENTS: (ComponentType | MetaComponentType)[] = [
+  'Slider',
+  'SliderTrack',
+  'SliderFilledTrack',
+  'SliderThumb',
+]
+  ///
+   ...SLIDER_COMPONENTS,
+   ///
+    'SliderMeta',
+    //
+            'SliderTrack',
+        'SliderFilledTrack',
+        'SliderThumb',
+```

@@ -3,13 +3,11 @@ export type MenuItem = {
   soon?: boolean
   rootParentType?: ComponentType
 }
-
 type MenuItems = Partial<
   {
     [k in ComponentType]: MenuItem
   }
 >
-
 export const menuItems: MenuItems = {
   Accordion: {
     children: {
@@ -94,6 +92,13 @@ export const menuItems: MenuItems = {
   },
   SimpleGrid: {},
   Spinner: {},
+  Slider: {
+    children: {
+      SliderTrack: {},
+      SliderFilledTrack: {},
+      SliderThumb: {},
+    },
+  },
   Select: {},
   Stack: {},
   Switch: {},
@@ -107,7 +112,6 @@ export const menuItems: MenuItems = {
   "TabPanel",
   "TabPanels"*/
 }
-
 export const componentsList: ComponentType[] = [
   'Accordion',
   'AccordionIcon',
@@ -164,6 +168,7 @@ export const componentsList: ComponentType[] = [
   'Select',
   'SimpleGrid',
   'Spinner',
+  'Slider',
   'Stack',
   'Switch',
   'Tab',
