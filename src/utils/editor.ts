@@ -4,7 +4,12 @@ const ALERT_COMPONENTS: (ComponentType | MetaComponentType)[] = [
   'AlertIcon',
   'AlertTitle',
 ]
-
+const SLIDER_COMPONENTS: (ComponentType | MetaComponentType)[] = [
+  'Slider',
+  'SliderTrack',
+  'SliderFilledTrack',
+  'SliderThumb',
+]
 export const COMPONENTS: (ComponentType | MetaComponentType)[] = [
   ...ALERT_COMPONENTS,
   'Avatar',
@@ -44,6 +49,7 @@ export const COMPONENTS: (ComponentType | MetaComponentType)[] = [
   'SimpleGrid',
   'Spinner',
   'Select',
+  ...SLIDER_COMPONENTS,
   'Stack',
   'Switch',
   'Tag',
@@ -72,12 +78,10 @@ export const COMPONENTS: (ComponentType | MetaComponentType)[] = [
   'InputGroupMeta',
   'BreadcrumbMeta',
 ]
-
 export const AccordionWhitelist: (
   | ComponentType
   | MetaComponentType
 )[] = COMPONENTS.filter(name => !ALERT_COMPONENTS.includes(name))
-
 export const rootComponents = COMPONENTS
   // Remove specific components
   .filter(
@@ -92,5 +96,8 @@ export const rootComponents = COMPONENTS
         'AccordionIcon',
         'BreadcrumbItem',
         'BreadcrumbLink',
+        'SliderTrack',
+        'SliderFilledTrack',
+        'SliderThumb',
       ].includes(name),
   )

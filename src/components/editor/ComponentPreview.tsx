@@ -26,7 +26,8 @@ import NumberInputPreview from '~components/editor/previews/NumberInputPreview'
 import BreadcrumbPreview from './previews/BreadcrumbPreview'
 import BreadcrumbItemPreview from './previews/BreadcrumbItemPreview'
 import HighlightPreview from './previews/HighlightPreview'
-
+import SliderTrackPreview from './previews/SliderTrackPreview'
+import SliderPreview from './previews/SliderPreview'
 const ComponentPreview: React.FC<{
   componentName: string
 }> = ({ componentName, ...forwardedProps }) => {
@@ -58,6 +59,8 @@ const ComponentPreview: React.FC<{
     case 'Radio':
     case 'ListItem':
     case 'BreadcrumbLink':
+    case 'SliderThumb':
+    case 'SliderFilledTrack':
       return (
         <PreviewContainer
           component={component}
@@ -155,6 +158,10 @@ const ComponentPreview: React.FC<{
       return <SelectPreview component={component} />
     case 'NumberInput':
       return <NumberInputPreview component={component} />
+    case 'SliderTrack':
+      return <SliderTrackPreview component={component} />
+    case 'Slider':
+      return <SliderPreview component={component} />
     case 'Highlight':
       return <HighlightPreview component={component} />
 

@@ -2,7 +2,6 @@
 declare module 'prettier/standalone'
 declare module 'coloreact'
 declare module 'browser-nativefs'
-
 type ComponentType =
   | 'Accordion'
   | 'AccordionItem'
@@ -59,6 +58,10 @@ type ComponentType =
   | 'RadioGroup'
   | 'Select'
   | 'SimpleGrid'
+  | 'Slider'
+  | 'SliderTrack'
+  | 'SliderFilledTrack'
+  | 'SliderThumb'
   | 'Spinner'
   | 'Stack'
   | 'Switch'
@@ -70,7 +73,6 @@ type ComponentType =
   | 'Tag'
   | 'Text'
   | 'Textarea'
-
 type MetaComponentType =
   | 'FormControlMeta'
   | 'AccordionMeta'
@@ -78,7 +80,7 @@ type MetaComponentType =
   | 'AlertMeta'
   | 'InputGroupMeta'
   | 'BreadcrumbMeta'
-
+  | 'SliderMeta'
 interface IComponent {
   children: string[]
   type: ComponentType
@@ -88,15 +90,12 @@ interface IComponent {
   rootParentType?: ComponentType
   componentName?: string
 }
-
 interface IComponents {
   [name: string]: IComponent
 }
-
 interface IPreviewProps {
   component: IComponent
 }
-
 interface ComponentItemProps {
   id: string
   label: string

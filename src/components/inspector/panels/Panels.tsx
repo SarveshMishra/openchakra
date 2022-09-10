@@ -49,7 +49,7 @@ import AspectRatioPanel from '~components/inspector/panels/components/AspectRati
 import BreadcrumbPanel from '~components/inspector/panels/components/BreadcrumbPanel'
 import BreadcrumbItemPanel from '~components/inspector/panels/components/BreadcrumbItemPanel'
 import HighlightPanel from '~components/inspector/panels/components/HighlightPanel'
-
+import SliderPanel from './components/SliderPanel'
 const Panels: React.FC<{ component: IComponent; isRoot: boolean }> = ({
   component,
   isRoot,
@@ -101,6 +101,10 @@ const Panels: React.FC<{ component: IComponent; isRoot: boolean }> = ({
       {type === 'List' && <ListPanel />}
       {type === 'ListItem' && <ListItemPanel />}
       {type === 'ListIcon' && <ListIconPanel />}
+      {type === 'Slider' && <SliderPanel />}
+      {type === 'SliderTrack' && <ChildrenControl />}
+      {type === 'SliderFilledTrack' && <ChildrenControl />}
+      {type === 'SliderThumb' && <ChildrenControl />}
       {type === 'Accordion' && <AccordionPanel />}
       {type === 'AccordionItem' && <AccordionItemPanel />}
       {type === 'FormLabel' && <FormLabelPanel />}

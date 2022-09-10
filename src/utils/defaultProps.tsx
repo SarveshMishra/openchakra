@@ -1,6 +1,5 @@
 import React from 'react'
 import * as Chakra from '@chakra-ui/react'
-
 import {
   BadgeProps,
   BoxProps,
@@ -59,12 +58,12 @@ import {
   BreadcrumbLinkProps,
   ListProps,
   HighlightProps,
+  SliderProps,
+  SliderTrackProps,
+  SliderThumbProps,
 } from '@chakra-ui/react'
-
 import iconsList from '~iconsList'
-
 type PropsWithForm<T> = T & { form?: T }
-
 type PreviewDefaultProps = {
   Badge?: PropsWithForm<BadgeProps>
   Box?: PropsWithForm<BoxProps>
@@ -132,8 +131,11 @@ type PreviewDefaultProps = {
   ListItem?: PropsWithForm<any>
   Center?: PropsWithForm<CenterProps>
   Container?: PropsWithForm<ContainerProps>
+  Slider?: PropsWithForm<SliderProps>
+  SliderTrack?: PropsWithForm<SliderTrackProps>
+  SliderFilledTrack?: PropsWithForm<any>
+  SliderThumb?: PropsWithForm<SliderThumbProps>
 }
-
 export const DEFAULT_PROPS: PreviewDefaultProps = {
   AlertDescription: {
     children: 'Alert description',
@@ -261,6 +263,15 @@ export const DEFAULT_PROPS: PreviewDefaultProps = {
       ),
     },
   },
+  Slider: {
+    step: 1,
+    size: 'md',
+    defaultValue: 50,
+    'aria-label': 'slider',
+  },
+  SliderFilledTrack: {},
+  SliderThumb: {},
+  SliderTrack: {},
   SimpleGrid: {
     columns: 2,
     spacingX: 1,
@@ -282,7 +293,6 @@ export const DEFAULT_PROPS: PreviewDefaultProps = {
   },
   Text: { children: 'Text value' },
 }
-
 export const getDefaultFormProps = (type: ComponentType) => {
   //@ts-ignore
   const chakraDefaultProps = Chakra[type].defaultProps
